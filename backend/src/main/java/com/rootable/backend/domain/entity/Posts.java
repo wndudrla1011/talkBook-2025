@@ -25,8 +25,8 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "title", length = 50, nullable = false)
     private String title; // 제목
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content; // 내용
+    @Column(name = "contents", columnDefinition = "TEXT")
+    private String contents; // 내용
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -47,9 +47,9 @@ public class Posts extends BaseTimeEntity {
     private List<Comment> commentList = new ArrayList<>();
 
     @Builder
-    public Posts(String title, String content, Member member, Book book, Long fileId, Status status) {
+    public Posts(String title, String contents, Member member, Book book, Long fileId, Status status) {
         this.title = title;
-        this.content = content;
+        this.contents = contents;
         this.member = member;
         this.book = book;
         this.fileId = fileId;
@@ -59,5 +59,25 @@ public class Posts extends BaseTimeEntity {
     /**
      * 연관 관계 메서드
      */
+    public void bindMember(Member member) {
+        this.member = member;
+        member.getPostsList().add(this);
+    }
+
+    public void bindBook(Book book) {
+        this.book = book;
+        book.getPostsList().add(this);
+    }
+
+    public void update(String title, String contents, Book book, Status status) {
+        this.title = title;
+        this.contents = contents;
+        this.book = book;
+        this.status = status;
+    }
+
+    public void changeFile(Long fileId) {
+        this.fileId = fileId;
+    }
 
 }
