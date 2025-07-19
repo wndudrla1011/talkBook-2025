@@ -47,4 +47,12 @@ public class Book extends BaseTimeEntity {
         this.status = status;
     }
 
+    /**
+     * 연관 관계 메서드
+     */
+    public void bindGenre(Genre genre) {
+        this.genre = genre;
+        genre.getBookList().add(this);
+    }
+
 }
