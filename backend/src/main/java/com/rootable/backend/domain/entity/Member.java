@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+@ToString(exclude = {"postsList", "commentList"})
 public class Member extends BaseTimeEntity {
 
     @Id

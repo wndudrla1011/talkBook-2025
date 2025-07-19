@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @Entity
 @NoArgsConstructor
+@ToString(exclude = "commentList")
 public class Posts extends BaseTimeEntity {
 
     @Id
@@ -20,10 +22,10 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "post_id")
     private Long id; // 게시글 번호
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "title", length = 50, nullable = false)
     private String title; // 제목
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content; // 내용
 
     @ManyToOne(fetch = LAZY)
@@ -34,6 +36,7 @@ public class Posts extends BaseTimeEntity {
     @JoinColumn(name = "book_id")
     private Book book; // 챌린지 도서
 
+    @Column(name = "file_id")
     private Long fileId; // 파일 ID
 
     @Enumerated(EnumType.STRING)
